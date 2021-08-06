@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, TextInput, View } from "react-native";
 import { AppButton, AppText } from '../../Components';
 import { search } from '../../Api/CallApi';
+import styleCommon from '../../CSS/common/styleCommon';
 export default function ({ navigation }) {
     const [txt, setTxt] = useState("Home1");
     const dataDumy = [
@@ -31,6 +32,16 @@ export default function ({ navigation }) {
                     callSearch(e.target.value);
                 }}
             />
+            <AppText
+                style={{ color: "blue" }}
+            >
+                HEllo
+            </AppText>
+            <Text
+                style={{ fontSize }}
+            >
+                Helloooooo
+            </Text>
 
             <Text style={{ backgroundColor: "yellow" }}>{txt}</Text>
             {
