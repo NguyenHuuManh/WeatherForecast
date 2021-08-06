@@ -6,6 +6,7 @@ interface AppTextProps {
   children?: any;
   style?: any;
 }
+
 const AppButton = (props: AppButtonProps) => {
   return <Text style={props.style||styles.textStyle}>{props.children}</Text>;
 };

@@ -4,8 +4,6 @@ import httpServices from "../../Service/httpServices";
 import { FORECAST, LOCATION, URL } from "../ApiURL";
 const apiKey = `tifIp0gZmfCxF0HhBGwz8nPQwXXTLHN1`;
 
-
-
 export const SearchLocation = async (param) => {
     return await httpServices.get(`${URL + LOCATION.AUTUCOMPLETE}${convertToQuery({ apikey: apiKey, q: param })}`,);
 };

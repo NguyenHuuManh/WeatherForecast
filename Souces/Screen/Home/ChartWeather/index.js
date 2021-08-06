@@ -1,4 +1,7 @@
 import React from "react"
+import SvgUri from 'react-native-svg-uri';
+import testSvg from '../../../Asset/Image/sun.svg';
+
 
 import {
     Text as TextSVG,
@@ -15,7 +18,12 @@ export default function () {
                 <TextSVG fill="#fff" x={`${x}`} y={`${y - 5}`} font-style="normal" fontSize={10}>
                     {title}
                 </TextSVG>
-                <ImageSVG href={require('../../../Asset/Image/sun.svg')} x={`${x}`} y={`${y}`} />
+                {/* <ImageSVG href={require('../../../Asset/Image/sun.svg')} x={`${x}`} y={`${y}`} /> */}
+
+                <SvgUri
+                    // source={`../../../Asset/Image/sun.svg`}
+                    svgXmlData={testSvg}
+                />
             </G>
         );
     }
