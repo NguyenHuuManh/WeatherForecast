@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View } from "react-native"
-import { AppButton } from '../../Components';
+import { Text, TextInput, View } from "react-native";
+import { AppButton, AppText } from '../../Components';
 import { search } from '../../Api/CallApi';
 export default function ({ navigation }) {
     const [txt, setTxt] = useState("Home1");
@@ -22,7 +22,9 @@ export default function ({ navigation }) {
     return (
         <View style={{ backgroundColor: "pink", width: "100%", height: "100%", alignItems: "center", justifyContent: "center", flex: 1 }}>
             <AppButton title="Button" onPress={() => { navigation.navigate('Home') }} style={{ width: "100%", backgroundColor: "green" }} textStyle={{ color: "red" }} />
-
+            <AppText >
+                asdasd
+            </AppText>
             <TextInput
                 onChange={(e) => {
                     console.log(e.target.value)
