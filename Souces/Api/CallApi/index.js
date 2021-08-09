@@ -8,7 +8,6 @@ export const SearchLocation = async (param) => {
     return await httpServices.get(`${URL + LOCATION.AUTUCOMPLETE}${convertToQuery({ apikey: apiKey, q: param })}`,);
 };
 
-
 export function search(key) {
     return fetch(`${URL + LOCATION.AUTUCOMPLETE}${convertToQuery({ apikey: apiKey, q: key })}`)
         .then(response => response.json())

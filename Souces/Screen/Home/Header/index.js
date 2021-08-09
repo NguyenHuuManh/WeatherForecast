@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, Text, View, TouchableOpacity } from "react-native";
 // import SvgUri from "react-native-svg-uri";
-import { AppText } from "../../../Components";
+import { AppButton, AppText } from "../../../Components";
 import style from "../style";
 export default function (props) {
   const navigation = useNavigation();

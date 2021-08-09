@@ -22,6 +22,8 @@ export default function ({navigation}) {
   const [currenLocation, setCurrentLocation] = useState();
   const [inforDay, setInforDay] = useState({});
   console.log(inforDay, 'inforDay');
+
+  
   useEffect(() => {
     getCurrentLocation().then(response => {
       getCurrentLocationByIP(response.IPv4).then(e => {
