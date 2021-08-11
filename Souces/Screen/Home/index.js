@@ -19,11 +19,13 @@ import {
   getWeather,
 } from '../../Api/CallApi';
 import { isEmpty, set } from 'lodash';
+import AwesomeLoading from 'react-native-awesome-loading';
 
 export default function ({ navigation }) {
   const [currenLocation, setCurrentLocation] = useState();
   const [inforDay, setInforDay] = useState({});
   const [data12H, setData12H] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
   const callgetCurrentLocation = () => {
     getCurrentLocation().then(response => {
       getCurrentLocationByIP(response.IPv4).then(e => {
@@ -38,12 +40,14 @@ export default function ({ navigation }) {
 
   useEffect(() => {
     if (isEmpty(currenLocation)) return;
-    getWeather(currenLocation.ParentCity.Key).then(res => {
-      setInforDay(res.DailyForecasts[0]);
-    });
-    get12H(currenLocation.ParentCity.Key).then(res => {
-      setData12H(res);
-    })
+    Promise.all([
+      getWeather(currenLocation.ParentCity.Key).then(res => {
+        setInforDay(res.DailyForecasts[0]);
+      }),
+      get12H(currenLocation.ParentCity.Key).then(res => {
+        setData12H(res);
+      })
+    ]).finally(() => { setIsLoading(false) })
   }, [currenLocation]);
 
   const convertTemp = f => {
@@ -53,6 +57,7 @@ export default function ({ navigation }) {
     <ImageBackground
       source={require('../../Asset/Image/background.png')}
       style={{ width: widthScreen, height: heightScreen }}>
+      <AwesomeLoading indicatorId={16} size={50} isActive={isLoading} text="loading" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         scrollToOverflowEnabled
@@ -73,7 +78,7 @@ export default function ({ navigation }) {
           }}
         />
         <View style={[styleCommon.containerComponent]}>
-          <ChartWeather data12H={data12H}/>
+          <ChartWeather data12H={data12H} />
         </View>
         <View>
           <View style={[style.containerHourView]}>
