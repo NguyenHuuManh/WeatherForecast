@@ -30,17 +30,6 @@ export default function ({ navigation }) {
                     callSearch(e.target.value);
                 }}
             />
-            <AppText
-                style={{ color: "blue" }}
-            >
-                HEllo
-            </AppText>
-            <Text
-                style={{ fontSize }}
-            >
-                Helloooooo
-            </Text>
-
             <Text style={{ backgroundColor: "yellow" }}>{txt}</Text>
             {
                 dataDumy.map((e) => (

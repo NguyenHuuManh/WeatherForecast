@@ -76,7 +76,7 @@ export default (props) => {
           <G key={index}>
             {renderLine(param.x, param.y, param.x, height, "#fff", [3, 3])}
             {renderLabelBotton && renderLabelBotton({ x: param.x - 10, y: height + 15, title: "Label" })}
-            {renderLabelTop && renderLabelTop({ x: param.x - 12, y: 20, title: labelTopValue[index] })}
+            {renderLabelTop && renderLabelTop({ x: param.x - 12, y: 20, title: labelTopValue[index], value: element })}
             {renderDot(param)}
 
           </G>
@@ -86,9 +86,9 @@ export default (props) => {
       return (
         <G key={index}>
           {renderLine(param.x, param.y, param.x, height, "#fff", [3, 3])}
-          {renderLine(param.x, param.y, param1.x, param1.y, "#5ae3e8", [0,0])}
+          {renderLine(param.x, param.y, param1.x, param1.y, "#5ae3e8", [0, 0])}
           {renderLabelBotton && renderLabelBotton({ x: param.x - 10, y: height + 15, title: "Label" })}
-          {renderLabelTop && renderLabelTop({ x: param.x - 12, y: 20, title: labelTopValue[index] })}
+          {renderLabelTop && renderLabelTop({ x: param.x - 12, y: 20, title: labelTopValue[index], value: element })}
           {renderDot(param)}
         </G>
 
@@ -100,7 +100,7 @@ export default (props) => {
       <Svg width={width} height={200}>
         {!labelHorizontal && renderHorizontal()}
         {!labelVertical && renderVertical()}
-        {dataValue &&drawChart()}
+        {dataValue && drawChart()}
       </Svg>
     </View>
 

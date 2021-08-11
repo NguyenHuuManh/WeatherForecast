@@ -1,13 +1,17 @@
-import { Text } from "react-native";
+import { Text, TextProps } from "react-native";
 import React from "react";
 import styles from "./styles";
 
-interface AppTextProps {
+interface AppTextProps extends TextProps {
   children?: any;
   style?: any;
 }
 
 const AppText = (props: AppTextProps) => {
-  return <Text style={props.style || styles.textStyle}>{props.children}</Text>;
+  return <Text
+    {...props}
+    style={props.style || styles.textStyle}>
+    {props.children}
+  </Text>;
 };
 export default AppText;

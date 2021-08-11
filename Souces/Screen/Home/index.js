@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {ImageBackground, ScrollView, Text, View} from 'react-native';
-import {heightScreen, widthScreen} from '../../CommonFunction';
-import {AppText} from '../../Components';
+import React, { useEffect, useState } from 'react';
+import { ImageBackground, ScrollView, Text, View } from 'react-native';
+import { heightScreen, widthScreen } from '../../CommonFunction';
+import { AppText } from '../../Components';
 
 import AppCircleTime from '../../Components/AppCircleTime';
 import styleCommon from '../../CSS/common/styleCommon';
@@ -12,24 +12,28 @@ import HoursView from './HoursView';
 import HumidityView from './HumidityView';
 import WinSpeed from './WinSpeed';
 import {
+  get12H,
+  get20H,
   getCurrentLocation,
   getCurrentLocationByIP,
   getWeather,
 } from '../../Api/CallApi';
-import {isEmpty} from 'lodash';
+import { isEmpty, set } from 'lodash';
 
-export default function ({navigation}) {
+export default function ({ navigation }) {
   const [currenLocation, setCurrentLocation] = useState();
   const [inforDay, setInforDay] = useState({});
-  console.log(inforDay, 'inforDay');
-
-  
-  useEffect(() => {
+  const [data12H, setData12H] = useState([])
+  const callgetCurrentLocation = () => {
     getCurrentLocation().then(response => {
       getCurrentLocationByIP(response.IPv4).then(e => {
         setCurrentLocation(e);
       });
     });
+  }
+
+  useEffect(() => {
+    callgetCurrentLocation();
   }, []);
 
   useEffect(() => {
@@ -37,6 +41,9 @@ export default function ({navigation}) {
     getWeather(currenLocation.ParentCity.Key).then(res => {
       setInforDay(res.DailyForecasts[0]);
     });
+    get12H(currenLocation.ParentCity.Key).then(res => {
+      setData12H(res);
+    })
   }, [currenLocation]);
 
   const convertTemp = f => {
@@ -45,19 +52,19 @@ export default function ({navigation}) {
   return (
     <ImageBackground
       source={require('../../Asset/Image/background.png')}
-      style={{width: widthScreen, height: heightScreen}}>
+      style={{ width: widthScreen, height: heightScreen }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         scrollToOverflowEnabled
         scrollEnabled
-        style={{height: heightScreen}}>
+        style={{ height: heightScreen }}>
         <Header
           location={{
             name: currenLocation?.ParentCity?.LocalizedName || '',
             t: parseInt(
               (convertTemp(inforDay?.Temperature?.Maximum?.Value) +
                 convertTemp(inforDay?.Temperature?.Minimum?.Value)) /
-                2,
+              2,
             ),
             tMax: convertTemp(inforDay?.Temperature?.Maximum?.Value) || 0,
             tMin: convertTemp(inforDay?.Temperature?.Minimum?.Value) || 0,
@@ -66,9 +73,8 @@ export default function ({navigation}) {
           }}
         />
         <View style={[styleCommon.containerComponent]}>
-          <ChartWeather />
+          <ChartWeather data12H={data12H}/>
         </View>
-
         <View>
           <View style={[style.containerHourView]}>
             <AppText>Dự báo hằng ngày</AppText>
