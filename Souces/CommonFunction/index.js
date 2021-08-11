@@ -10,6 +10,9 @@ export function convertToQuery(param) {
             .join("&")
     );
 }
+export const convertTemp = f => {
+    return parseInt((f - 32) * 0.555);
+};
 
 
 export const widthScreen = Dimensions.get("window").width;

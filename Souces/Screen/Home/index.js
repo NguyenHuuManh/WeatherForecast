@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ImageBackground, ScrollView, Text, View } from 'react-native';
-import { heightScreen, widthScreen } from '../../CommonFunction';
+import { convertTemp, heightScreen, widthScreen } from '../../CommonFunction';
 import { AppText } from '../../Components';
 
 import AppCircleTime from '../../Components/AppCircleTime';
@@ -14,6 +14,7 @@ import WinSpeed from './WinSpeed';
 import {
   get12H,
   get20H,
+  get5Days,
   getCurrentLocation,
   getCurrentLocationByIP,
   getWeather,
@@ -26,6 +27,7 @@ export default function ({ navigation }) {
   const [inforDay, setInforDay] = useState({});
   const [data12H, setData12H] = useState([])
   const [isLoading, setIsLoading] = useState(true);
+  const [data5Days, setData5Days] = useState([]);
   const callgetCurrentLocation = () => {
     getCurrentLocation().then(response => {
       getCurrentLocationByIP(response.IPv4).then(e => {
@@ -33,7 +35,6 @@ export default function ({ navigation }) {
       });
     });
   }
-
   useEffect(() => {
     callgetCurrentLocation();
   }, []);
@@ -46,13 +47,13 @@ export default function ({ navigation }) {
       }),
       get12H(currenLocation.ParentCity.Key).then(res => {
         setData12H(res);
+      }),
+      get5Days(currenLocation.ParentCity.Key).then((res) => {
+        setData5Days(res?.DailyForecasts);
       })
     ]).finally(() => { setIsLoading(false) })
   }, [currenLocation]);
 
-  const convertTemp = f => {
-    return parseInt((f - 32) * 0.555);
-  };
   return (
     <ImageBackground
       source={require('../../Asset/Image/background.png')}
@@ -86,10 +87,7 @@ export default function ({ navigation }) {
             <AppText>25 ngày</AppText>
           </View>
           <View style={styleCommon.containerComponent}>
-            <HoursView />
-          </View>
-          <View style={styleCommon.containerComponent}>
-            <HoursView />
+            <HoursView data5Days={data5Days} />
           </View>
         </View>
         <HumidityView />

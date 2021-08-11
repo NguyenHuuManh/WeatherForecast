@@ -38,4 +38,9 @@ export function get12H(locationKey) {
         .then(response => response.json())
 }
 
+export function get5Days(locationKey) {
+    return fetch(`${URL + FORECAST.FIVE_DAY}${locationKey}${convertToQuery({ apikey: apiKey })}`)
+        .then(response => response.json())
+}
+
 
